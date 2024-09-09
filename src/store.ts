@@ -3,7 +3,7 @@ import type { CamInfo, State } from './types';
 import { proxy } from 'valtio';
 
 const request = new XMLHttpRequest();
-request.open("GET", "/cams", false);
+request.open("GET", "/stream/cams", false);
 request.send(null);
 const { camDescrArr }: { camDescrArr: [description: string, ar: string][] } = JSON.parse(request.responseText);
 console.log('camDescrArr :>> ', camDescrArr);
