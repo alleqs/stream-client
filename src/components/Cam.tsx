@@ -40,7 +40,7 @@ export const Cam: FC<Props> = ({ visible, camNumber, description, ar }) => {
             autoPlay
             muted
             // controls
-            src={`../stream/${camNumber}`}
+            src={`../stream/stream/${camNumber}`}
             onClick={() => state.toggle(camNumber)}
             onLoadedData={() => setLoading(false)}
          />
