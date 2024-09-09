@@ -10,7 +10,7 @@ type Props = {
 export const StepperBtn: FC<Props> = ({ freezedTime, setFreezedTime, timerEnabled }) => {
 
    return (
-      <form name='stepper-form' className="">
+      <form>
          <div className="relative flex items-center max-w-[8rem]">
             <button disabled={!timerEnabled}
                onClick={() => freezedTime > minFreezedTime && setFreezedTime(freezedTime - deltaTimer)}
