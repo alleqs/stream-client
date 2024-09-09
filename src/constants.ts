@@ -6,10 +6,10 @@ export const arMap: Record<string, string> = {
    '22/15': 'aspect-[22/15]'
 };
 
-export const defaultFreezedTime = 15;
-export const minFreezedTime = 5;
+export const defaultFreezedTime = 30;
+export const minFreezedTime = 15;
 export const defaultTimerEnabled = false;
-export const deltaTimer = 5
+export const deltaTimer = 5;
 
 
 // const request = new XMLHttpRequest();

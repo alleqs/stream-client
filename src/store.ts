@@ -3,10 +3,9 @@ import type { CamInfo, State } from './types';
 import { proxy } from 'valtio';
 
 const request = new XMLHttpRequest();
-request.open("GET", "/stream/cams", false);
+request.open("GET", "/api/cams", false);
 request.send(null);
 const { camDescrArr }: { camDescrArr: [description: string, ar: string][] } = JSON.parse(request.responseText);
-console.log('camDescrArr :>> ', camDescrArr);
 const camInfoArr: CamInfo[] = camDescrArr.map(([description, ar], camNumber) => ({ description, camNumber, ar }));
 const camsAmount = camInfoArr.length;
 
