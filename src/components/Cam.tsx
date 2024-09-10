@@ -35,7 +35,7 @@ export const Cam: FC<Props> = ({ visible, camNumber, description, ar }) => {
          {loading && state.viewState.type === 'Multi' && <VideoSkeleton ar={ar} />}
          <video
             // style={visible ? {} : { height: '0px' }}
-            className={`${loading ? 'h-0 w-0' : ''} ${state.viewState.type === 'Multi' ? 'max-h-[calc(50vh-0.25rem)]' : 'max-h-screen'}`}
+            className={`${loading ? 'h-0 w-0' : ''} ${state.viewState.type === 'Multi' ? 'h-[calc(50vh-0.25rem)]' : 'max-h-screen'}`}
             style={{ ...(!visible) && { height: '0px' } }}
             autoPlay
             muted
