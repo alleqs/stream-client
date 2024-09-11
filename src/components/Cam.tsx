@@ -1,7 +1,9 @@
-import { useEffect, useState, type FC } from 'react';
+import { useEffect, useRef, useState, type FC } from 'react';
 import { state } from '../store';
 import { BackBtn } from './BackBtn';
 import { VideoSkeleton } from './VideoSkeleton';
+import html2canvas from "html2canvas";
+import { SnapshotBtn } from './SnapshotBtn';
 
 type Props = {
    visible: boolean
@@ -13,6 +15,7 @@ type Props = {
 export const Cam: FC<Props> = ({ visible, camNumber, description, ar }) => {
 
    const [loading, setLoading] = useState(true);
+   const ref = useRef<HTMLDivElement>(null);
 
    useEffect(() => {
       setLoading(true);
@@ -20,18 +23,35 @@ export const Cam: FC<Props> = ({ visible, camNumber, description, ar }) => {
 
    // useEffect(() => {
    //    function handlekeydownEvent(event: KeyboardEvent) {
-   //       if (event.key === 'Escape' && state.viewState.type === 'Single' && visible) {
-   //          console.log('visible :>> ', visible);
-   //          state.toggle(camNumber);
+   //       if (event.key === 's') {
+   //          console.log('snapshot');
+   //          // console.log('visible :>> ', visible);
+   //          // state.toggle(camNumber);
    //       }
    //    }
    //    document.addEventListener('keyup', handlekeydownEvent)
    //    return () => { document.removeEventListener('keyup', handlekeydownEvent) }
    // }, []);
 
+   // async function handlesSnapshot() {
+   //    console.log('snapshot');
+   //    const canvas = await html2canvas(ref.current!, { useCORS: true, allowTaint: true });
+   //    const imgData = canvas.toDataURL('image/jpg');
+   //    const p = await fetch(imgData);
+   //    const imgBlob = await p.blob();
+   //    const url = URL.createObjectURL(imgBlob);
+   //    const a = document.createElement('a');
+   //    a.style.display = 'none';
+   //    a.href = url;
+   //    a.download = 'snapshot.jpg';
+   //    document.body.appendChild(a);
+   //    a.click();
+   //    a.parentNode?.removeChild(a);
+   // }
+
 
    return (
-      <div className='relative flex justify-center'>
+      <div ref={ref} className='relative flex justify-center'>
          {loading && state.viewState.type === 'Multi' && <VideoSkeleton ar={ar} />}
          <video
             // style={visible ? {} : { height: '0px' }}
@@ -47,7 +67,9 @@ export const Cam: FC<Props> = ({ visible, camNumber, description, ar }) => {
          {!loading && visible && <div className={`absolute left-0 right-0 bottom-2 grid place-items-center text-gray-200 invisible group-hover:visible transition-all duration-1000 ease-in-out`}>
             {description}
          </div>}
-         {state.viewState.type === 'Single' && visible && <BackBtn camNumber={camNumber} />}
+         {state.viewState.type === 'Single' && visible && <>
+            <BackBtn camNumber={camNumber} />
+            <SnapshotBtn targetRef={ref} /></>}
       </div>
    );
 }

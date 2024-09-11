@@ -9,5 +9,5 @@ export const BackBtn: FC<{ camNumber: number }> = ({ camNumber }) => {
             <use href='#back' />
          </svg>
       </button>
-   )
-}
+   );
+};
