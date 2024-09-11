@@ -5,7 +5,7 @@ import useSound from 'use-sound';
 export const SnapshotBtn: FC<{ targetRef: React.RefObject<HTMLDivElement> }> = ({ targetRef: ref }) => {
 
    const [count, setCount] = useState(0);
-   const [play] = useSound('./camera-13695.mp3', { playbackRate: count <= 1 ? 0.75 : 1 });
+   const [play] = useSound('./camera-13695.mp3', { playbackRate: count <= 1 ? 0.5 : 1 });
 
    async function handlesSnapshot() {
       console.log('snapshot');
