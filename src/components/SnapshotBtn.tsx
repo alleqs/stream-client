@@ -1,8 +1,13 @@
-import { useRef, useState, type FC } from 'react';
+import { useState, type FC } from 'react';
 import html2canvas from 'html2canvas';
 import useSound from 'use-sound';
 
-export const SnapshotBtn: FC<{ targetRef: React.RefObject<HTMLDivElement> }> = ({ targetRef: ref }) => {
+type Props = {
+   targetRef: React.RefObject<HTMLDivElement>
+   description: string
+}
+
+export const SnapshotBtn: FC<Props> = ({ targetRef: ref, description }) => {
 
    const [count, setCount] = useState(0);
    const [play] = useSound('./camera-13695.mp3', { playbackRate: count <= 1 ? 0.5 : 1 });
@@ -19,7 +24,7 @@ export const SnapshotBtn: FC<{ targetRef: React.RefObject<HTMLDivElement> }> = (
       const a = document.createElement('a');
       a.style.display = 'none';
       a.href = url;
-      a.download = 'snapshot.jpg';
+      a.download = `snapshot_${toSnakeCase(description)}.jpg`;
       document.body.appendChild(a);
       a.click();
       a.parentNode?.removeChild(a);
@@ -34,3 +39,8 @@ export const SnapshotBtn: FC<{ targetRef: React.RefObject<HTMLDivElement> }> = (
       </button>
    );
 };
+
+function toSnakeCase(str: string) {
+   const stringWithSingleSpace = str.trim().toLocaleLowerCase().replace(/\s+/g, ' ');
+   return stringWithSingleSpace.split(' ').join('_');
+}

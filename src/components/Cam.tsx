@@ -2,7 +2,6 @@ import { useEffect, useRef, useState, type FC } from 'react';
 import { state } from '../store';
 import { BackBtn } from './BackBtn';
 import { VideoSkeleton } from './VideoSkeleton';
-import html2canvas from "html2canvas";
 import { SnapshotBtn } from './SnapshotBtn';
 
 type Props = {
@@ -69,7 +68,7 @@ export const Cam: FC<Props> = ({ visible, camNumber, description, ar }) => {
          </div>}
          {state.viewState.type === 'Single' && visible && <>
             <BackBtn camNumber={camNumber} />
-            <SnapshotBtn targetRef={ref} /></>}
+            <SnapshotBtn targetRef={ref} description={description} /></>}
       </div>
    );
 }
