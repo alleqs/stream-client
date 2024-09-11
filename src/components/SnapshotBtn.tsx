@@ -1,14 +1,16 @@
-import { type FC } from 'react';
+import { useRef, useState, type FC } from 'react';
 import html2canvas from 'html2canvas';
 import useSound from 'use-sound';
 
 export const SnapshotBtn: FC<{ targetRef: React.RefObject<HTMLDivElement> }> = ({ targetRef: ref }) => {
 
-   const [play] = useSound('./camera-13695.mp3');
+   const [count, setCount] = useState(0);
+   const [play] = useSound('./camera-13695.mp3', { playbackRate: count <= 1 ? 0.75 : 1 });
 
    async function handlesSnapshot() {
       console.log('snapshot');
       play();
+      setCount(c => c + 1);
       const canvas = await html2canvas(ref.current!, { useCORS: true, allowTaint: true });
       const imgData = canvas.toDataURL('image/jpg');
       const p = await fetch(imgData);
