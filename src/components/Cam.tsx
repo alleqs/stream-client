@@ -3,6 +3,7 @@ import { state } from '../store';
 import { BackBtn } from './BackBtn';
 import { VideoSkeleton } from './VideoSkeleton';
 import { SnapshotBtn } from './SnapshotBtn';
+import { Tray } from './Tray';
 
 type Props = {
    visible: boolean
@@ -63,12 +64,14 @@ export const Cam: FC<Props> = ({ visible, camNumber, description, ar }) => {
             onClick={() => state.toggle(camNumber)}
             onLoadedData={() => setLoading(false)}
          />
-         {!loading && visible && <div className={`absolute left-0 right-0 bottom-2 grid place-items-center text-gray-200 invisible group-hover:visible transition-all duration-1000 ease-in-out`}>
+         {!loading && state.viewState.type === 'Multi' && <div className={`absolute left-0 right-0 bottom-2 grid place-items-center text-gray-200 invisible group-hover:visible transition-all duration-1000 ease-in-out`}>
             {description}
          </div>}
-         {state.viewState.type === 'Single' && visible && <>
+         {/* {state.viewState.type === 'Single' && visible && <>
             <BackBtn camNumber={camNumber} />
-            <SnapshotBtn targetRef={ref} description={description} /></>}
+            <SnapshotBtn targetRef={ref} description={description} /></>} */}
+         {state.viewState.type === 'Single' && visible &&
+            <Tray camNumber={camNumber} description={description} targetRef={ref} />}
       </div>
    );
 }
