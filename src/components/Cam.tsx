@@ -24,7 +24,7 @@ export const Cam: FC<Props> = ({ visible, camNumber, description, ar, index }) =
    return (
       <div ref={ref} className='relative flex justify-center'>
          {loading && state.viewState.type === 'Multi' && <VideoSkeleton ar={ar} />}
-         <video
+         {/* <video
             // style={visible ? {} : { height: '0px' }}
             style={{ ...(!visible) && { height: '0px' } }}
             className={`${loading ? 'h-0 w-0' : ''} ${state.viewState.type === 'Multi' ? 'h-[calc(50vh-0.25rem)]' : 'max-h-screen'}`}
@@ -34,7 +34,7 @@ export const Cam: FC<Props> = ({ visible, camNumber, description, ar, index }) =
             src={`../api/stream/${camNumber}`}
             onClick={() => state.viewState.type === 'Multi' ? state.viewState = { type: 'Single', index } : { type: 'Multi' }}
             onLoadedData={() => setLoading(false)}
-         />
+         /> */}
          {!loading && state.viewState.type === 'Multi' && <div className={`absolute left-0 right-0 bottom-2 grid place-items-center text-gray-200 invisible group-hover:visible transition-all duration-1000 ease-in-out`}>
             {description}
          </div>}
