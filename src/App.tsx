@@ -15,7 +15,7 @@ export const App: FC = () => {
    const [showSearchBar, setShowSearchBar] = useState(false);
    const slice = camInfoArr.slice(page * state.camsPerView, (page + 1) * state.camsPerView);
    console.log('page :>> ', page);
-   console.log(`${camInfoArr.length} [${page * state.camsPerView}, ${(page + 1) * state.camsPerView}]`);
+   // console.log(`${camInfoArr.length} [${page * state.camsPerView}, ${(page + 1) * state.camsPerView}]`);
 
    useEffect(() => {
       function handlekeydownEvent({ code }: KeyboardEvent) {
