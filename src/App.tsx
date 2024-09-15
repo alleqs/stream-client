@@ -39,7 +39,7 @@ export const App: FC = () => {
             {showSearchBar && <SearchBar onClose={() => setShowSearchBar(false)} />}
             <div className={viewState.type === 'Multi' ? `grid ${slice.length !== 1 ? 'grid-cols-2' : ''} auto-rows-[1fr] gap-0.5 max-h-screen` : 'flex justify-center items-center h-full'}>
                {slice.map(({ descr, camNumber, ar }, i) => {
-                  // console.log('{ descr, camNumber, ar, i } :>> ', { descr, camNumber, ar, i });
+                  console.log('{ descr, camNumber, ar, i } :>> ', { descr, camNumber, ar, i });
                   return <Cam key={i} visible={isVisible(i)} camNumber={camNumber} description={descr} ar={ar} index={i} />
                })}
             </div>
