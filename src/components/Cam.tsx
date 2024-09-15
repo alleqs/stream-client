@@ -20,10 +20,15 @@ export const Cam: FC<Props> = ({ visible, camNumber, description, ar, index }) =
       setLoading(true);
    }, [camNumber]);
 
+   function handleClick() {
+      if (state.viewState.type === 'Multi') {
+         state.viewState = { type: 'Single', index };
+      }
+   }
 
    return (
       <div ref={ref} className='relative flex justify-center'>
-         {loading && state.viewState.type === 'Multi' && <VideoSkeleton ar={ar} />}
+         {loading && state.viewState.type === 'Multi' && visible && <VideoSkeleton ar={ar} />}
          <video
             // style={visible ? {} : { height: '0px' }}
             style={{ ...(!visible) && { height: '0px' } }}
@@ -32,7 +37,7 @@ export const Cam: FC<Props> = ({ visible, camNumber, description, ar, index }) =
             muted
             // controls
             src={`../api/stream/${camNumber}`}
-            onClick={() => state.viewState.type === 'Multi' ? state.viewState = { type: 'Single', index } : { type: 'Multi' }}
+            onClick={handleClick}
             onLoadedData={() => setLoading(false)}
          />
          {!loading && state.viewState.type === 'Multi' && <div className={`absolute left-0 right-0 bottom-2 grid place-items-center text-gray-200 invisible group-hover:visible transition-all duration-1000 ease-in-out`}>
