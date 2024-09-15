@@ -40,7 +40,7 @@ export const Cam: FC<Props> = ({ visible, camNumber, description, ar, index }) =
             onClick={handleClick}
             onLoadedData={() => setLoading(false)}
          />
-         {!loading && state.viewState.type === 'Multi' && <div className={`absolute left-0 right-0 bottom-2 grid place-items-center text-gray-200 invisible group-hover:visible transition-all duration-1000 ease-in-out`}>
+         {!loading && state.viewState.type === 'Multi' && <div className={`absolute left-0 right-0 bottom-2 grid place-items-center text-gray-200 invisible group-hover:visible transition-all duration-1000 ease-in-out text-2xl`}>
             {description}
          </div>}
          {/* {state.viewState.type === 'Single' && visible && <>
