@@ -1,23 +1,31 @@
 
 export type ViewState =
    | { type: 'Single', index: number }
-   | { type: 'Multi', index: number }
+   | { type: 'Multi' }
 
 export type State = {
    _timerEnabled: boolean
    _freezedTime: number
+   _pickedTags: string[]
+   page: number
    camInfoArr: CamInfo[]
    timerEnabled: boolean
+   pickedTags: string[]
    freezedTime: number
    camsPerView: number
    viewState: ViewState
    incr(): void
    decr(): void
-   toggle(index: number): void
+   // toggleViewState(index?: number): void
 }
 
 export type CamInfo = {
    camNumber: number
-   description: string
+   descr: string
    ar: string
+   tags: string[]
+}
+
+export type DTO = {
+   camInfoArr: Omit<CamInfo, 'camNumber'>[]
 }

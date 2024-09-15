@@ -11,7 +11,6 @@ export const minFreezedTime = 15;
 export const defaultTimerEnabled = false;
 export const deltaTimer = 5;
 
-
 // const request = new XMLHttpRequest();
 // request.open("GET", "/cams-amount", false);
 // request.send(null);

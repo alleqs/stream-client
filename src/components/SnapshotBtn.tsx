@@ -10,7 +10,7 @@ type Props = {
 export const SnapshotBtn: FC<Props> = ({ targetRef: ref, description }) => {
 
    const [count, setCount] = useState(0);
-   const [play] = useSound('./camera-13695.mp3', { playbackRate: count <= 1 ? 0.5 : 1 });
+   const [play] = useSound('./camera-sound.mp3', { playbackRate: count <= 1 ? 0.5 : 1 });
 
    async function handleSnapshot() {
       play();

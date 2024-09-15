@@ -10,25 +10,20 @@ import { SearchBar } from './components/SearchBar';
 
 export const App: FC = () => {
 
-   const { viewState, camsPerView } = useSnapshot(state);
+   const { viewState, camInfoArr, page } = useSnapshot(state);
    const settingsModalRef = useRef<HTMLDialogElement>(null);
-   const slice = state.camInfoArr.slice(Math.floor(viewState.index / camsPerView) * camsPerView, Math.floor(viewState.index / camsPerView) * camsPerView + camsPerView);
    const [showSearchBar, setShowSearchBar] = useState(false);
+   const slice = camInfoArr.slice(page * state.camsPerView, (page + 1) * state.camsPerView);
+   console.log('page :>> ', page);
+   console.log(`${camInfoArr.length} [${page * state.camsPerView}, ${(page + 1) * state.camsPerView}]`);
 
    useEffect(() => {
       function handlekeydownEvent({ code }: KeyboardEvent) {
-         switch (code) {
-            case 'AltLeft':
-               setShowSearchBar(true);
-               break;
-            case 'Escape':
-               setShowSearchBar(false);
-               break;
-            case 'NumpadEnter':
-            case 'Enter':
-               break;
+         if (code === 'AltLeft') {
+            setShowSearchBar(true);
+         } else if (code === 'Escape') {
+            setShowSearchBar(false);
          }
-
       }
       document.addEventListener('keyup', handlekeydownEvent)
       return () => { document.removeEventListener('keyup', handlekeydownEvent) }
@@ -39,24 +34,26 @@ export const App: FC = () => {
    }
 
    return (
-      <div className='h-screen bg-zinc-950 flex justify-center items-center'>
+      <main className='h-screen bg-zinc-950 flex justify-center items-center'>
          <div className='relative group bg-zinc-900 max-h-screen' >
-            {showSearchBar && <SearchBar />}
+            {showSearchBar && <SearchBar onClose={() => setShowSearchBar(false)} />}
             <div className={viewState.type === 'Multi' ? `grid ${slice.length !== 1 ? 'grid-cols-2' : ''} auto-rows-[1fr] gap-0.5 max-h-screen` : 'flex justify-center items-center h-full'}>
-               {slice.map(({ description, camNumber, ar }, i) =>
-                  <Cam key={i} visible={isVisible(i)} camNumber={camNumber} description={description} ar={ar} />)}
+               {slice.map(({ descr, camNumber, ar }, i) => {
+                  // console.log('{ descr, camNumber, ar, i } :>> ', { descr, camNumber, ar, i });
+                  return <Cam key={i} visible={isVisible(i)} camNumber={camNumber} description={descr} ar={ar} index={i} />
+               })}
             </div>
             {viewState.type === 'Multi' && <>
-               <ArrowBtn icon='arrow-left' dir='L' />
-               <ArrowBtn icon='arrow-right' dir='R' />
-               <SettingsBtn onClick={handleSettingsModalClick} />
-            </>}
+               {camInfoArr.length > state.camsPerView && <>
+                  <ArrowBtn icon='arrow-left' dir='L' />
+                  <ArrowBtn icon='arrow-right' dir='R' /> </>}
+               <SettingsBtn onClick={handleSettingsModalClick} /> </>}
          </div>
          <SettingsModal modalRef={settingsModalRef} />
-      </div>
+      </main>
    );
 };
 
 function isVisible(i: number): boolean {
-   return state.viewState.type === 'Multi' || (state.viewState.index % state.camsPerView) === i
+   return state.viewState.type === 'Multi' || state.viewState.index === i
 }

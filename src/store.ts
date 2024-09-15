@@ -1,20 +1,45 @@
 import { camsPerView, defaultFreezedTime, defaultTimerEnabled } from './constants';
-import type { CamInfo, State } from './types';
+import type { CamInfo, DTO, State } from './types';
 import { proxy } from 'valtio';
 
 const request = new XMLHttpRequest();
 request.open("GET", "/api/cams", false);
 request.send(null);
-const { camDescrArr }: { camDescrArr: [description: string, ar: string][] } = JSON.parse(request.responseText);
-const camInfoArr: CamInfo[] = camDescrArr.map(([description, ar], camNumber) => ({ description, camNumber, ar }));
+const { camInfoArr: arr }: DTO = JSON.parse(request.responseText);
+const camInfoArr: CamInfo[] = arr.map((obj, camNumber) => ({ camNumber, ...obj }));
 const camsAmount = camInfoArr.length;
+export const allTags = [...new Set(camInfoArr.map(c => c.tags).flat())];
 
 let interval = -1
 
 const init: State = {
    _timerEnabled: getTimerEnabled(),
    _freezedTime: getFreezedTime(),
+   _pickedTags: [],
    camInfoArr,
+   camsPerView: camsPerView,
+   viewState: { type: 'Multi' },
+   page: 0,
+   get pickedTags() { return this._pickedTags },
+   set pickedTags(pickedTags) {
+      console.log('picked');
+      this.camInfoArr = pickedTags.length === 0
+         ? camInfoArr
+         : camInfoArr.filter(({ tags: _tags }) => {
+            const tags = Object.values(_tags);
+            let includes = false;
+            for (const tag of pickedTags) {
+               if (tags.includes(tag)) {
+                  includes = true;
+                  break;
+               }
+            }
+            return includes;
+         });
+      this._pickedTags = pickedTags;
+      this.viewState = { type: 'Multi' }
+      this.page = 0;
+   },
    get timerEnabled() { return this._timerEnabled },
    set timerEnabled(enabled) {
       // if (enabled !== this._timerEnabled) {
@@ -37,26 +62,17 @@ const init: State = {
          this._freezedTime = fTime;
       }
    },
-   camsPerView: camsPerView,
-   viewState: { type: 'Multi', index: 0 },
    incr() {
       if (this.viewState.type === 'Multi') {
-         this.viewState.index =
-            (this.viewState.index + this.camsPerView) % (Math.ceil(camsAmount / this.camsPerView) * this.camsPerView)
+         this.page = (this.page + 1) % Math.ceil(this.camInfoArr.length / this.camsPerView);
       }
    },
    decr() {
       if (this.viewState.type === 'Multi') {
-         const adjLength = Math.ceil(camsAmount / this.camsPerView) * this.camsPerView
-         this.viewState.index =
-            (this.viewState.index - this.camsPerView + adjLength) % adjLength
+         const totalPages = Math.ceil(this.camInfoArr.length / this.camsPerView)
+         this.page = (this.page + totalPages - 1) % totalPages;
       }
    },
-   toggle(index) {
-      this.viewState.type === 'Single'
-         ? this.viewState = { type: 'Multi', index: Math.floor(index / this.camsPerView) * this.camsPerView }
-         : this.viewState = { type: 'Single', index }
-   }
 }
 
 if (init.timerEnabled) init.timerEnabled = true;   //inicia timer
