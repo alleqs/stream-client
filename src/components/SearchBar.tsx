@@ -32,7 +32,7 @@ export const SearchBar: FC<Props> = ({ onClose }) => {
    }
 
    return (
-      <div className='absolute left-1/2 transform -translate-x-1/2 top-1/3 z-10 w-[300px] scale-[3]'>
+      <div className='absolute left-1/2 transform -translate-x-1/2 top-1/4 z-10 w-[300px] scale-[3]'>
          <Select
             isMulti
             autoFocus
