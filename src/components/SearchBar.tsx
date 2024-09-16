@@ -32,14 +32,14 @@ export const SearchBar: FC<Props> = ({ onClose }) => {
    }
 
    return (
-      <div className='absolute left-1/2 transform -translate-x-1/2 top-20 z-10 w-[650px]'>
+      <div className='absolute left-1/2 transform -translate-x-1/2 top-32 z-10 w-[280px] scale-[1.8]'>
          <Select
             isMulti
             autoFocus
             defaultValue={pickedTags.map(t => ({ value: t, label: t }))}
             name="colors"
             options={tags}
-            className="basic-multi-select mx-auto text-gray-600 text-6xl"
+            className="basic-multi-select mx-auto text-gray-600"
             classNamePrefix="select"
             placeholder='Pesquisar...'
             onChange={handleChange as (_: MultiValue<unknown>) => void}
@@ -62,7 +62,7 @@ type ConfirmBtnProps = {
 }
 const ConfirmBtn: FC<ConfirmBtnProps> = ({ onClick, isVisible }) =>
    <button type="submit" className={isVisible ? 'visible' : 'invisible'} onMouseDown={onClick}>
-      <svg className="m-2 text-gray-600 fill-current h-12 w-12">
+      <svg className="m-2 text-gray-600 fill-current h-6 w-6">
          <use href='#search' />
       </svg>
    </button>
@@ -72,7 +72,7 @@ function checkIsVisible(pickedTags: string[], tag: string): boolean {
 }
 
 const customStyles: StylesConfig = {
-   control: (base, _state) => ({
+   control: (base, state) => ({
       ...base,
       background: "#FFFFFFC0",
    })
