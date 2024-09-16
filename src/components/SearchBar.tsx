@@ -32,14 +32,14 @@ export const SearchBar: FC<Props> = ({ onClose }) => {
    }
 
    return (
-      <div className='absolute left-1/2 transform -translate-x-1/2 top-20 z-10 w-[480px]'>
+      <div className='absolute left-1/2 transform -translate-x-1/2 top-20 z-10 w-[650px]'>
          <Select
             isMulti
             autoFocus
             defaultValue={pickedTags.map(t => ({ value: t, label: t }))}
             name="colors"
             options={tags}
-            className="basic-multi-select mx-auto text-gray-600 text-4xl"
+            className="basic-multi-select mx-auto text-gray-600 text-6xl"
             classNamePrefix="select"
             placeholder='Pesquisar...'
             onChange={handleChange as (_: MultiValue<unknown>) => void}
@@ -62,7 +62,7 @@ type ConfirmBtnProps = {
 }
 const ConfirmBtn: FC<ConfirmBtnProps> = ({ onClick, isVisible }) =>
    <button type="submit" className={isVisible ? 'visible' : 'invisible'} onMouseDown={onClick}>
-      <svg className="m-2 text-gray-600 fill-current h-6 w-6">
+      <svg className="m-2 text-gray-600 fill-current h-12 w-12">
          <use href='#search' />
       </svg>
    </button>
@@ -72,30 +72,8 @@ function checkIsVisible(pickedTags: string[], tag: string): boolean {
 }
 
 const customStyles: StylesConfig = {
-   control: (base, state) => ({
+   control: (base, _state) => ({
       ...base,
       background: "#FFFFFFC0",
-      //   // match with the menu
-      //   borderRadius: state.isFocused ? "3px 3px 0 0" : 3,
-      //   // Overwrittes the different states of border
-      //   borderColor: state.isFocused ? "yellow" : "green",
-      //   // Removes weird border around container
-      //   boxShadow: state.isFocused ? null : null,
-      //   "&:hover": {
-      //     // Overwrittes the different states of border
-      //     borderColor: state.isFocused ? "red" : "blue"
-      //   }
-   }),
-   // menu: base => ({
-   //   ...base,
-   //   // override border radius to match the box
-   //   borderRadius: 0,
-   //   // kill the gap
-   //   marginTop: 0
-   // }),
-   // menuList: base => ({
-   //   ...base,
-   //   // kill the white space on first and last option
-   //   padding: 0
-   // })
+   })
 };
