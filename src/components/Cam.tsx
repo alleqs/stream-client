@@ -2,16 +2,9 @@ import { useEffect, useRef, useState, type FC } from 'react';
 import { state } from '../store';
 import { VideoSkeleton } from './VideoSkeleton';
 import { Tray } from './Tray';
+import type { CamProps } from '../types';
 
-type Props = {
-   visible: boolean
-   camNumber: number
-   description: string
-   ar: string
-   index: number
-}
-
-export const Cam: FC<Props> = ({ visible, camNumber, description, ar, index }) => {
+export const Cam: FC<CamProps> = ({ visible, camNumber, description, ar, index }) => {
 
    const [loading, setLoading] = useState(true);
    const ref = useRef<HTMLDivElement>(null);

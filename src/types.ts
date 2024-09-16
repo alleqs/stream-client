@@ -29,3 +29,11 @@ export type CamInfo = {
 export type DTO = {
    camInfoArr: Omit<CamInfo, 'camNumber'>[]
 }
+
+export type CamProps = {
+   visible: boolean
+   camNumber: number
+   description: string
+   ar: string
+   index: number
+}
