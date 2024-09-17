@@ -72,7 +72,7 @@ function checkIsVisible(pickedTags: string[], tag: string): boolean {
 }
 
 const customStyles: StylesConfig = {
-   control: (base, state) => ({
+   control: (base, _state) => ({
       ...base,
       background: "#FFFFFFC0",
    })

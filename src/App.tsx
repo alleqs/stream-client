@@ -17,10 +17,25 @@ export const App: FC = () => {
 
    useEffect(() => {
       function handlekeydownEvent({ code }: KeyboardEvent) {
-         if (code === 'AltLeft') {
-            setShowSearchBar(true);
-         } else if (code === 'Escape') {
-            setShowSearchBar(false);
+         // console.log('code :>> ', code);
+         switch (code) {
+            case 'AltLeft':
+               setShowSearchBar(true);
+               break;
+            case 'Escape':
+               setShowSearchBar(false);
+               break;
+            case 'ArrowRight':
+               state.incr();
+               break;
+            case 'ArrowLeft':
+               state.decr();
+               break;
+            case 'Backspace':
+               if (state.viewState.type === 'Single') {
+                  state.viewState = { type: 'Multi' };
+               }
+               break;
          }
       }
       document.addEventListener('keyup', handlekeydownEvent)
