@@ -33,7 +33,7 @@ export const SnapshotBtn: FC<Props> = ({ targetRef: ref, description }) => {
       <button className={`bg-[#FFFFFF30] px-1 py-1 rounded-full inline-flex items-center w-16 invisible group-hover:visible transition-all duration-1000 ease-in-out`}
          onClick={handleSnapshot}>
          <svg className="w-14 h-14 text-gray-800">
-            <use href='#cam' />
+            <use href='icons.svg#cam' />
          </svg>
       </button>
    );

@@ -63,7 +63,7 @@ type ConfirmBtnProps = {
 const ConfirmBtn: FC<ConfirmBtnProps> = ({ onClick, isVisible }) =>
    <button type="submit" className={isVisible ? 'visible' : 'invisible'} onMouseDown={onClick}>
       <svg className="m-2 text-gray-600 fill-current h-6 w-6">
-         <use href='#search' />
+         <use href='icons.svg#search' />
       </svg>
    </button>
 
