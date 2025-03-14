@@ -29,7 +29,7 @@ export const Cam: FC<CamProps> = ({ visible, camNumber, description, ar, index }
             autoPlay
             muted
             // controls
-            src={`../api/stream/${camNumber}`}
+            src={`../stm/stream/${camNumber}`}
             onClick={handleClick}
             onLoadedData={() => setLoading(false)}
          />

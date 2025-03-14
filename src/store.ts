@@ -3,7 +3,7 @@ import type { CamInfo, DTO, State } from './types';
 import { proxy } from 'valtio';
 
 const request = new XMLHttpRequest();
-request.open("GET", "/api/cams", false);
+request.open("GET", "/stm/cams", false);
 request.send(null);
 const { camInfoArr: arr }: DTO = JSON.parse(request.responseText);
 const camInfoArr: CamInfo[] = arr.map((obj, camNumber) => ({ camNumber, ...obj }));
